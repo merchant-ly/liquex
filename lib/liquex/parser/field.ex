@@ -13,7 +13,7 @@ defmodule Liquex.Parser.Field do
     #   - May end in a question mark (?)
     combinator
     |> utf8_string([?a..?z, ?A..?Z, ?_], 1)
-    |> concat(utf8_string([?a..?z, ?A..?Z, ?0..?9, ?_], min: 0))
+    |> concat(utf8_string([?a..?z, ?A..?Z, ?0..?9, ?_, ?-], min: 0))
     |> concat(optional(string("?")))
     |> reduce({Enum, :join, []})
   end
