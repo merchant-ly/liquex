@@ -3,6 +3,7 @@ defmodule Liquex.Argument do
 
   alias Liquex.Context
   alias Liquex.Indifferent
+  alias Liquex.Collection
 
   @type field_t :: any
   @type argument_t ::
@@ -27,6 +28,14 @@ defmodule Liquex.Argument do
   defp do_eval(nil, _, _context), do: nil
 
   # Special case ".first"
+  defp do_eval(value, [{:key, "first"} | tail], context) when is_struct(value) do
+    value
+    |> Collection.to_enumerable()
+    |> do_eval([{:key, "first"} | tail], context)
+  rescue
+    _ -> do_eval(Map.from_struct(value), [{:key, "first"} | tail], context)
+  end
+
   defp do_eval(value, [{:key, "first"} | tail], context) when is_list(value) do
     value
     |> Enum.at(0)
@@ -35,6 +44,14 @@ defmodule Liquex.Argument do
   end
 
   # Special case ".size"
+  defp do_eval(value, [{:key, "size"} | tail], context) when is_struct(value) do
+    value
+    |> Collection.to_enumerable()
+    |> do_eval([{:key, "size"} | tail], context)
+  rescue
+    _ -> do_eval(Map.from_struct(value), [{:key, "size"} | tail], context)
+  end
+
   defp do_eval(value, [{:key, "size"} | tail], context) when is_list(value) do
     value
     |> length()
