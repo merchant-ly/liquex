@@ -43,6 +43,14 @@ defmodule Liquex.Argument do
     |> do_eval(tail, context)
   end
 
+  # Special case ".last"
+  defp do_eval(value, [{:key, "last"} | tail], context) when is_list(value) do
+    value
+    |> Enum.at(-1)
+    |> apply_lazy(value, context)
+    |> do_eval(tail, context)
+  end
+
   # Special case ".size"
   defp do_eval(value, [{:key, "size"} | tail], context) when is_struct(value) do
     value
