@@ -44,6 +44,14 @@ defmodule Liquex.Argument do
   end
 
   # Special case ".last"
+  defp do_eval(value, [{:key, "last"} | tail], context) when is_struct(value) do
+    value
+    |> Collection.to_enumerable()
+    |> do_eval([{:key, "last"} | tail], context)
+  rescue
+    _ -> do_eval(Map.from_struct(value), [{:key, "last"} | tail], context)
+  end
+
   defp do_eval(value, [{:key, "last"} | tail], context) when is_list(value) do
     value
     |> Enum.at(-1)
