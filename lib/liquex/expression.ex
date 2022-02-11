@@ -3,6 +3,7 @@ defmodule Liquex.Expression do
 
   alias Liquex.Argument
   alias Liquex.Context
+  alias Liquex.Value
 
   @spec eval(maybe_improper_list | {:field, any} | {:literal, any}, Context.t()) :: any
   def eval([left: left, op: op, right: right], %Context{} = context) do
@@ -43,7 +44,9 @@ defmodule Liquex.Expression do
   defp do_eval({left, :contains, right}),
     do: String.contains?(to_string(left), to_string(right))
 
-  defp do_eval({left, op, right}), do: apply(Kernel, op, [left, right])
+  defp do_eval({left, op, right}) do
+    apply(Kernel, op, [Value.to_liquex_value(left), Value.to_liquex_value(right)])
+  end
 
   # Truthy values
   defp do_eval(nil), do: false
