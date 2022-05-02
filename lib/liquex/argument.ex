@@ -74,6 +74,12 @@ defmodule Liquex.Argument do
     |> do_eval(tail, context)
   end
 
+  defp do_eval(value, [{:key, "size"} | tail], context) when is_binary(value) do
+    value
+    |> String.length()
+    |> do_eval(tail, context)
+  end
+
   defp do_eval(value, [{:key, key} | tail], context) do
     value
     |> Indifferent.get(key)
