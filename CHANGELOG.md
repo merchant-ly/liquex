@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.2] - 2022-04-19
+
+- Fix struct access in liquid template regression [#31](https://github.com/markglenn/liquex/issues/31)
+
+## [0.7.1] - 2022-03-31
+
+- Allow accessing variables that implement the Access behaviour [#26](https://github.com/markglenn/liquex/pull/26)
+- Allow types supporting String.Chars protocol to be used in string operations [#23](https://github.com/markglenn/liquex/pull/23)
+  - Thank you [cipater](https://github.com/cipater)
+- Allow multiple values in case statements [#29](https://github.com/markglenn/liquex/pull/29)
+  - Thank you [ouven](https://github.com/ouven)
+
 ## [0.7.0] - 2021-09-17
 
 - Refactored custom tags for better developer experience [#20](https://github.com/markglenn/liquex/issues/20)
