@@ -43,7 +43,8 @@ defmodule Liquex.MixProject do
       {:dialyxir, "~> 1.1.0", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false},
       {:jason, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:hrx, "~> 0.1.0", only: [:test], runtime: false}
+      {:hrx, "~> 0.1.0", only: [:test], runtime: false},
+      {:ruby_strftime, github: "merchant-ly/ruby_strftime", branch: "main"}
     ]
   end
 
